@@ -1,0 +1,27 @@
+# Jekyll Configuration for GitHub Pages
+
+title: Kara Durası
+description: İsmail Çınar tarafından kaleme alınmış, gerçek olaylara dayalı tarihsel roman
+author: İsmail Çınar
+
+# Markdown
+markdown: kramdown
+highlighter: rouge
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Exclude
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# Collections
+collections:
+  chapters:
+    output: true

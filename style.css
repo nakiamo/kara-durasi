@@ -1,0 +1,311 @@
+/* Kara Durası - GitHub Pages Stil Dosyası */
+
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #34495e;
+    --accent-color: #e74c3c;
+    --text-color: #333;
+    --bg-color: #fff;
+    --border-color: #ddd;
+    --link-color: #3498db;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    line-height: 1.8;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 40px 20px;
+    border-bottom: 3px solid var(--primary-color);
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 3em;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.author {
+    font-size: 1.5em;
+    color: var(--secondary-color);
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    font-size: 1.1em;
+    color: #666;
+    font-style: italic;
+}
+
+/* Navigation */
+.main-nav {
+    margin-bottom: 40px;
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.main-nav a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.main-nav a:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Sections */
+.section {
+    margin-bottom: 60px;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.section h2 {
+    color: var(--primary-color);
+    font-size: 2em;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
+}
+
+/* Book Info */
+.book-info {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.cover-image {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+    border: 3px solid var(--border-color);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.info-text {
+    flex: 1;
+    min-width: 250px;
+}
+
+.info-text p {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.description {
+    margin-top: 20px;
+    font-size: 1.1em;
+    line-height: 1.8;
+}
+
+.description p {
+    margin-bottom: 15px;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.btn-primary {
+    background-color: var(--accent-color);
+    font-size: 1.2em;
+    padding: 15px 40px;
+}
+
+.btn-primary:hover {
+    background-color: #c0392b;
+}
+
+/* Reading Options */
+.reading-options {
+    text-align: center;
+    padding: 40px;
+}
+
+.note {
+    margin-top: 15px;
+    color: #666;
+    font-style: italic;
+}
+
+/* Download Options */
+.download-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.download-item {
+    text-align: center;
+    padding: 30px;
+    background-color: white;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.download-item:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.download-item h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+.download-item p {
+    margin-top: 15px;
+    color: #666;
+    font-size: 0.9em;
+}
+
+/* Contact Info */
+.contact-info {
+    background-color: white;
+    padding: 25px;
+    border-radius: 5px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.contact-info p {
+    margin-bottom: 10px;
+}
+
+.contact-info a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+.contact-info {
+    text-align: center;
+}
+
+.social-links {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-links a {
+    color: #333;
+    font-size: 2rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #000;
+}
+
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    border-top: 2px solid var(--border-color);
+    margin-top: 60px;
+    color: #666;
+}
+
+footer p {
+    margin-bottom: 5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2em;
+    }
+    
+    .author {
+        font-size: 1.2em;
+    }
+    
+    .book-info {
+        flex-direction: column;
+    }
+    
+    .cover-image {
+        max-width: 100%;
+    }
+    
+    .main-nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .download-options {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .main-nav,
+    footer {
+        display: none;
+    }
+    
+    .section {
+        page-break-inside: avoid;
+    }
+}

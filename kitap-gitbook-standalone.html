@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kara Durası - İsmail Çınar</title>
+    <link rel="stylesheet" href="kitap-gitbook-style.css">
+</head>
+<body>
+    <div class="bookdown-container with-summary" id="bookContainer">
+        <!-- Sidebar - İçindekiler -->
+        <div class="bookdown-sidebar">
+            <ul class="summary" id="toc">
+                <li><a href="index.html">Kara Durası</a></li>
+                <li class="divider"></li>
+                <li class="chapter" data-level=""><a href="#kapak">Kapak</a></li>
+                <li class="chapter" data-level=""><a href="#künye">Künye</a></li>
+                <li class="chapter" data-level=""><a href="#içindekiler">İçindekiler</a></li>
+                <li class="chapter" data-level=""><a href="#önsöz">Önsöz</a></li>
+            </ul>
+        </div>
+        
+        <!-- Header -->
+        <div class="bookdown-header">
+            <button class="btn" onclick="toggleSummary()">☰</button>
+            <h1><a href="index.html">Kara Durası</a></h1>
+            <div style="width: 50px;"></div>
+        </div>
+        
+        <!-- Ana İçerik -->
+        <div class="bookdown-body">
+            <div class="body-inner">
+                <div class="page-wrapper">
+                    <div class="page-inner">
+                        <section class="normal" id="bookContent">
+                            <!-- İçerik kitap.html'den yüklenecek -->
+                            <p class="loading">Kitap içeriği yükleniyor...</p>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Sidebar toggle
+        function toggleSummary() {
+            const container = document.getElementById('bookContainer');
+            container.classList.toggle('with-summary');
+        }
+        
+        // Pandoc HTML'ini yükle ve içeriği göster
+        async function loadBookContent() {
+            // Path'leri dinamik olarak belirle
+            const currentPath = window.location.pathname;
+            let kitapHtmlPath = 'kitap.html';
+            
+            // Eğer github-pages klasöründeysek, aynı klasördeki kitap.html'i kullan
+            // Eğer root klasöründeysek, github-pages/kitap.html'i kullan
+            if (currentPath.includes('/github-pages/')) {
+                kitapHtmlPath = 'kitap.html'; // Aynı klasör
+            } else {
+                kitapHtmlPath = 'github-pages/kitap.html'; // Alt klasör
+            }
+            
+            // Alternatif path'leri dene
+            const pathsToTry = [
+                kitapHtmlPath,
+                'kitap.html',
+                './kitap.html',
+                '../github-pages/kitap.html',
+                'github-pages/kitap.html'
+            ];
+            
+            let success = false;
+            
+            for (const path of pathsToTry) {
+                try {
+                    console.log(`Kitap HTML yükleniyor: ${path}`);
+                    const response = await fetch(path);
+                    
+                    if (response.ok) {
+                        const htmlText = await response.text();
+                        
+                        // HTML string'ini parse et
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(htmlText, 'text/html');
+                        
+                        // Body'den içeriği al
+                        const body = doc.body;
+                        
+                        // Header ve TOC'u kaldır
+                        const header = body.querySelector('header#title-block-header');
+                        const toc = body.querySelector('nav#TOC');
+                        if (header) header.remove();
+                        if (toc) toc.remove();
+                        
+                        // İçeriği al
+                        const content = body.innerHTML;
+                        
+                        document.getElementById('bookContent').innerHTML = content;
+                        
+                        // Başlıklara ID ekle
+                        addIdsToHeadings();
+                        
+                        // İçindekileri otomatik oluştur
+                        generateTOC();
+                        
+                        // Aktif link takibi
+                        updateActiveLink();
+                        
+                        // Görsel path'lerini düzelt
+                        fixImagePaths();
+                        
+                        // İçerik içindeki linkleri scroll'a bağla
+                        fixInternalLinks();
+                        
+                        console.log(`✅ Kitap HTML başarıyla yüklendi: ${path}`);
+                        success = true;
+                        break;
+                    }
+                } catch (error) {
+                    console.warn(`Path deneniyor: ${path} - Hata:`, error.message);
+                    continue;
+                }
+            }
+            
+            if (!success) {
+                console.error('❌ kitap.html dosyası hiçbir path\'te bulunamadı');
+                document.getElementById('bookContent').innerHTML = 
+                    '<div style="padding: 40px; text-align: center;">' +
+                    '<h2>İçerik Yüklenemedi</h2>' +
+                    '<p>kitap.html dosyası bulunamadı. Lütfen bir web sunucusu kullanın:</p>' +
+                    '<pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; text-align: left; display: inline-block; margin: 20px 0;">cd github-pages\npython3 -m http.server 8001</pre>' +
+                    '<p style="margin-top: 20px;">' +
+                    '<a href="kitap.html" style="display: inline-block; padding: 10px 20px; background: #008cff; color: white; text-decoration: none; border-radius: 4px;">Klasik Görünümü Kullan</a>' +
+                    '</p>' +
+                    '</div>';
+            }
+        }
+        
+        // Hata yönetimi
+        window.addEventListener('error', function(e) {
+            if (e.message && e.message.includes('loadBookContent')) {
+                document.getElementById('bookContent').innerHTML = 
+                    '<div style="padding: 40px; text-align: center;">' +
+                    '<h2>İçerik Yüklenemedi</h2>' +
+                    '<p>Lütfen bir web sunucusu kullanın:</p>' +
+                    '<pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; text-align: left; display: inline-block; margin: 20px 0;">cd github-pages\npython3 -m http.server 8001</pre>' +
+                    '<p style="margin-top: 20px;">' +
+                    '<a href="kitap.html" style="display: inline-block; padding: 10px 20px; background: #008cff; color: white; text-decoration: none; border-radius: 4px;">Klasik Görünümü Kullan</a>' +
+                    '</p>' +
+                    '</div>';
+            }
+        });
+        
+        // Başlıklara ID ekle (İçindekiler linkleriyle uyumlu olması için)
+        function addIdsToHeadings() {
+            const headings = document.querySelectorAll('.bookdown-body h1, .bookdown-body h2, .bookdown-body h3');
+            headings.forEach(heading => {
+                const text = heading.textContent.trim();
+                // Pandoc'un ürettiği veya bizim istediğimiz ID formatı
+                // "1. Bölüm" -> "1-bölüm"
+                const id = text
+                    .toLowerCase()
+                    .replace(/\.\s+/g, '-') // "1. Bölüm" -> "1-bölüm"
+                    .replace(/\s+/g, '-')   // Diğer boşluklar
+                    .replace(/[^\w\u00C0-\u017F-]+/g, '') // Harf, rakam ve Türkçe karakterleri koru
+                    .replace(/^-+|-+$/g, ''); // Baştaki ve sondaki tireleri kaldır
+                
+                heading.id = id;
+                console.log(`Heading ID set: ${text} -> ${id}`);
+            });
+        }
+        
+        // İçindekileri otomatik oluştur
+        function generateTOC() {
+            const headings = document.querySelectorAll('.bookdown-body h1, .bookdown-body h2');
+            const toc = document.getElementById('toc');
+            
+            // Mevcut başlığı koru, sonrasını temizle
+            const firstLi = toc.querySelector('li:first-child');
+            const divider = toc.querySelector('li.divider');
+            toc.innerHTML = '';
+            if (firstLi) toc.appendChild(firstLi);
+            if (divider) toc.appendChild(divider);
+            
+            headings.forEach(heading => {
+                const id = heading.getAttribute('id');
+                const text = heading.textContent.trim();
+                const level = heading.tagName.toLowerCase();
+                
+                if (!id || !text) return;
+                
+                // Bölüm numarasını çıkar
+                const chapterMatch = text.match(/^(\d+)\.\s*(.+)$/);
+                const chapterNum = chapterMatch ? chapterMatch[1] : null;
+                const chapterTitle = chapterMatch ? chapterMatch[2] : text;
+                
+                const li = document.createElement('li');
+                li.className = 'chapter';
+                if (level === 'h1' && chapterNum) {
+                    li.setAttribute('data-level', chapterNum);
+                }
+                
+                const a = document.createElement('a');
+                a.href = '#' + id;
+                // Başlık metnini olduğu gibi kullan (zaten "1. Bölüm" şeklinde numaralı)
+                a.innerHTML = text;
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    if (window.innerWidth <= 600) {
+                        document.getElementById('bookContainer').classList.remove('with-summary');
+                    }
+                });
+                
+                li.appendChild(a);
+                toc.appendChild(li);
+            });
+        }
+        
+        // Aktif link'i güncelle
+        function updateActiveLink() {
+            const sections = document.querySelectorAll('.bookdown-body h1, .bookdown-body h2');
+            const links = document.querySelectorAll('#toc a[href^="#"]');
+            
+            function updateActive() {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (window.pageYOffset >= sectionTop - 150) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                document.querySelectorAll('#toc li').forEach(li => {
+                    li.classList.remove('active');
+                });
+                
+                links.forEach(link => {
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.parentElement.classList.add('active');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', updateActive);
+            updateActive();
+        }
+        
+        // Görsel path'lerini düzelt
+        function fixImagePaths() {
+            const images = document.querySelectorAll('.bookdown-body img');
+            console.log('Toplam görsel sayısı:', images.length);
+            
+            // Mevcut path'i kontrol et
+            const currentPath = window.location.pathname;
+            const currentUrl = window.location.href;
+            const isInGitHubPages = currentPath.includes('/github-pages/') || currentUrl.includes('/github-pages/');
+            
+            console.log('Mevcut path:', currentPath);
+            console.log('GitHub Pages klasöründe mi?', isInGitHubPages);
+            
+            images.forEach((img, index) => {
+                let src = img.getAttribute('src');
+                if (!src) {
+                    console.warn(`Görsel ${index}: src bulunamadı`);
+                    return;
+                }
+                
+                console.log(`Görsel ${index}: Orijinal path =`, src);
+                
+                // Path kontrolü ve düzeltmesi - BASIT YÖNTEM
+                if (src.includes('images/')) {
+                    // Tüm görselleri images/ formatına çevir (github-pages/images/ klasöründe)
+                    if (!src.startsWith('http') && !src.startsWith('//')) {
+                        const imgName = src.includes('images/') ? src.split('images/')[1] : src.split('/').pop();
+                        
+                        // Her durumda images/ kullan (github-pages/images/ klasöründe)
+                        if (src.startsWith('../images/') || src.startsWith('/images/') || src.startsWith('images/')) {
+                            const newSrc = 'images/' + imgName;
+                            
+                            if (newSrc !== src) {
+                                console.log(`Görsel ${index}: Path düzeltildi: ${src} -> ${newSrc}`);
+                                img.setAttribute('src', newSrc);
+                                src = newSrc;
+                            }
+                        }
+                    }
+                }
+                
+                // Figure elementi varsa
+                const figure = img.closest('figure');
+                if (figure) {
+                    figure.style.textAlign = 'center';
+                    figure.style.margin = '30px 0';
+                    img.style.maxWidth = '100%';
+                    img.style.height = 'auto';
+                    img.style.display = 'block';
+                    img.style.margin = '0 auto';
+                } else {
+                    // Figure yoksa direkt img'e stil ekle
+                    img.style.maxWidth = '100%';
+                    img.style.height = 'auto';
+                    img.style.display = 'block';
+                    img.style.margin = '20px auto';
+                }
+                
+                // Görsel yüklenemediğinde hata kontrolü ve alternatif path dene
+                img.onerror = function() {
+                    console.error(`❌ Görsel yüklenemedi: ${src}`);
+                    const originalSrc = img.getAttribute('src');
+                    const triedPaths = [originalSrc];
+                    
+                    // Alternatif path'leri dene
+                    const alternatives = [];
+                    
+                    // Alternatif path'leri dene - BASIT YÖNTEM
+                    const imgName = originalSrc.includes('images/') ? originalSrc.split('images/')[1] : originalSrc.split('/').pop();
+                    
+                    // Sadece images/ formatını dene (github-pages/images/ klasöründe)
+                    alternatives.push('images/' + imgName);
+                    
+                    // Alternatif path'leri dene
+                    let altIndex = 0;
+                    const tryNext = () => {
+                        if (altIndex < alternatives.length) {
+                            const altSrc = alternatives[altIndex];
+                            if (!triedPaths.includes(altSrc)) {
+                                console.log(`   Alternatif path deneniyor (${altIndex + 1}/${alternatives.length}): ${altSrc}`);
+                                triedPaths.push(altSrc);
+                                img.setAttribute('src', altSrc);
+                                altIndex++;
+                            } else {
+                                altIndex++;
+                                tryNext();
+                            }
+                        } else {
+                            console.error(`   Tüm alternatif path'ler denendi, görsel yüklenemedi: ${originalSrc}`);
+                        }
+                    };
+                    
+                    // İlk alternatifi dene
+                    if (alternatives.length > 0) {
+                        tryNext();
+                    }
+                };
+                
+                // Görsel başarıyla yüklendiğinde log
+                img.onload = function() {
+                    console.log(`✅ Görsel yüklendi: ${src}`);
+                };
+            });
+        }
+        
+        // İçerik içindeki iç linkleri (anchor) yumuşak scroll'a bağla
+        function fixInternalLinks() {
+            const internalLinks = document.querySelectorAll('#bookContent a[href^="#"]');
+            internalLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const id = link.getAttribute('href').substring(1);
+                    const target = document.getElementById(id);
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        // URL'i güncelle (isteğe bağlı)
+                        history.pushState(null, null, '#' + id);
+                    }
+                });
+            });
+        }
+        
+        // Sayfa yüklendiğinde içeriği yükle
+        window.addEventListener('DOMContentLoaded', loadBookContent);
+        
+        // Mobil için sidebar toggle
+        if (window.innerWidth <= 600) {
+            document.getElementById('bookContainer').classList.remove('with-summary');
+        }
+        
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 600) {
+                document.getElementById('bookContainer').classList.add('with-summary');
+            }
+        });
+    </script>
+</body>
+</html>

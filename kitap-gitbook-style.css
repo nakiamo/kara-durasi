@@ -1,0 +1,444 @@
+/* GitBook/Bookdown Tarzı Kitap Okuma Sayfası Stilleri */
+
+:root {
+    --sidebar-width: 300px;
+    --header-height: 50px;
+    --content-max-width: 800px;
+    --primary-color: #364149;
+    --link-color: #008cff;
+    --bg-color: #fff;
+    --sidebar-bg: #fafafa;
+    --border-color: rgba(0,0,0,0.07);
+    --text-color: #333;
+    --text-muted: #7e888b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: var(--text-color);
+    background: var(--bg-color);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Ana Container */
+.bookdown-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Sidebar - İçindekiler (GitBook tarzı) */
+.bookdown-sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    bottom: 0;
+    width: var(--sidebar-width);
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+    z-index: 1;
+    transition: left 250ms ease;
+    overflow-y: auto;
+}
+
+.bookdown-container.with-summary .bookdown-sidebar {
+    left: 0;
+}
+
+.bookdown-sidebar .summary {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.bookdown-sidebar .summary li {
+    list-style: none;
+}
+
+.bookdown-sidebar .summary li.divider {
+    height: 1px;
+    margin: 7px 0;
+    overflow: hidden;
+    background: var(--border-color);
+}
+
+.bookdown-sidebar .summary li a {
+    display: block;
+    padding: 10px 15px;
+    border-bottom: none;
+    color: var(--primary-color);
+    background: transparent;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.bookdown-sidebar .summary li a:hover,
+.bookdown-sidebar .summary li.active > a {
+    color: var(--link-color);
+    background: transparent;
+    text-decoration: none;
+}
+
+.bookdown-sidebar .summary li ul {
+    padding-left: 20px;
+}
+
+.bookdown-sidebar .summary li.part {
+    padding: 10px 15px;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-top: 10px;
+}
+
+/* Header */
+.bookdown-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    padding: 0 8px;
+    z-index: 2;
+    font-size: 0.85em;
+    color: var(--text-muted);
+    background: transparent;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.bookdown-container.with-summary .bookdown-header {
+    left: var(--sidebar-width);
+}
+
+.bookdown-header h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 200;
+    text-align: center;
+    line-height: var(--header-height);
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.bookdown-header h1 a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.bookdown-header .btn {
+    display: block;
+    height: var(--header-height);
+    padding: 0 15px;
+    border: none;
+    color: #ccc;
+    text-transform: uppercase;
+    line-height: var(--header-height);
+    background: transparent;
+    cursor: pointer;
+    font-size: 14px;
+    transition: color 0.2s;
+}
+
+.bookdown-header .btn:hover {
+    color: #444;
+    text-decoration: none;
+}
+
+/* Ana İçerik */
+.bookdown-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    bottom: 0;
+    right: 0;
+    color: #000;
+    background: var(--bg-color);
+    transition: left 250ms ease;
+    padding-top: var(--header-height);
+}
+
+.bookdown-container.with-summary .bookdown-body {
+    left: var(--sidebar-width);
+}
+
+.bookdown-body .body-inner {
+    position: relative;
+    outline: 0;
+}
+
+.bookdown-body .page-wrapper {
+    position: relative;
+    outline: 0;
+}
+
+.bookdown-body .page-inner {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 20px 15px 40px;
+}
+
+.bookdown-body .page-inner section {
+    margin: 0;
+    padding: 5px 15px;
+    background: var(--bg-color);
+    border-radius: 2px;
+    line-height: 1.7;
+    font-size: 1.6rem;
+    word-wrap: break-word;
+    overflow: hidden;
+    color: var(--text-color);
+}
+
+/* Başlıklar */
+.bookdown-body h1 {
+    font-size: 2em;
+    margin-top: 1.275em;
+    margin-bottom: 0.85em;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.bookdown-body h2 {
+    font-size: 1.75em;
+    margin-top: 1.275em;
+    margin-bottom: 0.85em;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.bookdown-body h3 {
+    font-size: 1.5em;
+    margin-top: 1.275em;
+    margin-bottom: 0.85em;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.bookdown-body h4 {
+    font-size: 1.25em;
+    margin-top: 1.275em;
+    margin-bottom: 0.85em;
+    font-weight: bold;
+}
+
+.bookdown-body h5 {
+    font-size: 1em;
+    margin-top: 1.275em;
+    margin-bottom: 0.85em;
+    font-weight: bold;
+}
+
+.bookdown-body h6 {
+    font-size: 1em;
+    margin-top: 1.275em;
+    margin-bottom: 0.85em;
+    color: #777;
+}
+
+/* Paragraflar */
+.bookdown-body p {
+    margin-top: 0;
+    margin-bottom: 0.85em;
+    text-align: justify;
+}
+
+/* Linkler */
+.bookdown-body a {
+    color: #4183c4;
+    text-decoration: none;
+    background: transparent;
+}
+
+.bookdown-body a:active,
+.bookdown-body a:focus,
+.bookdown-body a:hover {
+    outline: 0;
+    text-decoration: underline;
+}
+
+/* Görseller */
+.bookdown-body img {
+    border: 0;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+}
+
+.bookdown-body figure {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.bookdown-body figure img {
+    margin: 0 auto;
+}
+
+.bookdown-body figcaption {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #777;
+    font-style: italic;
+}
+
+/* Listeler */
+.bookdown-body ul,
+.bookdown-body ol {
+    padding: 0 0 0 2em;
+    margin: 0 0 0.85em;
+}
+
+.bookdown-body li {
+    margin-bottom: 0.5em;
+}
+
+/* Blockquote */
+.bookdown-body blockquote {
+    margin: 0 0 0.85em;
+    padding: 0 15px;
+    opacity: 0.75;
+    border-left: 4px solid #dcdcdc;
+}
+
+/* Kod */
+.bookdown-body code {
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    padding: 0.2em;
+    margin: 0;
+    font-size: 0.85em;
+    background-color: #f7f7f7;
+    border-radius: 3px;
+}
+
+.bookdown-body pre {
+    overflow: auto;
+    word-wrap: normal;
+    margin: 0 0 1.275em;
+    padding: 0.85em 1em;
+    background: #f7f7f7;
+    border-radius: 3px;
+}
+
+.bookdown-body pre code {
+    display: block;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    font-size: 0.85em;
+    white-space: pre;
+}
+
+/* Tablolar */
+.bookdown-body table {
+    border-collapse: collapse;
+    margin: 1em 0;
+    width: 100%;
+}
+
+.bookdown-body table th,
+.bookdown-body table td {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+}
+
+.bookdown-body table th {
+    background-color: var(--sidebar-bg);
+    font-weight: bold;
+}
+
+/* HR */
+.bookdown-body hr {
+    height: 4px;
+    padding: 0;
+    margin: 1.7em 0;
+    overflow: hidden;
+    background-color: #e7e7e7;
+    border: none;
+}
+
+/* Responsive - Mobil */
+@media (max-width: 1240px) {
+    .bookdown-body {
+        transition: transform 250ms ease;
+        padding-bottom: 20px;
+    }
+    
+    .bookdown-body .body-inner {
+        position: static;
+        min-height: calc(100% - 50px);
+    }
+}
+
+@media (max-width: 600px) {
+    .bookdown-sidebar {
+        width: calc(100% - 60px);
+        bottom: 0;
+        left: -100%;
+    }
+    
+    .bookdown-container.with-summary {
+        overflow: hidden;
+    }
+    
+    .bookdown-container.with-summary .bookdown-body {
+        transform: translate(calc(100% - 60px), 0);
+    }
+    
+    .bookdown-container.with-summary .bookdown-header {
+        left: calc(100% - 60px);
+        min-width: 300px;
+    }
+    
+    .bookdown-header h1 {
+        display: none;
+    }
+    
+    .bookdown-body .page-inner {
+        padding: 15px 10px 30px;
+    }
+    
+    .bookdown-body .page-inner section {
+        font-size: 1.4rem;
+        padding: 5px 10px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .bookdown-sidebar,
+    .bookdown-header {
+        display: none !important;
+    }
+    
+    .bookdown-body {
+        left: 0 !important;
+    }
+    
+    .bookdown-body,
+    .bookdown-body .body-inner {
+        overflow: visible !important;
+    }
+}
