@@ -152,17 +152,18 @@ body, html {
     height: var(--header-height);
     padding: 0 15px;
     border: none;
-    color: #ccc;
+    color: #333; /* Daha belirgin bir renk */
     text-transform: uppercase;
     line-height: var(--header-height);
     background: transparent;
     cursor: pointer;
-    font-size: 14px;
-    transition: color 0.2s;
+    font-size: 20px; /* Biraz daha büyük ikon */
+    font-weight: bold;
+    transition: all 0.2s;
 }
 
 .bookdown-header .btn:hover {
-    color: #444;
+    color: var(--link-color);
     text-decoration: none;
 }
 

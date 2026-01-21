@@ -210,7 +210,8 @@
                 a.addEventListener('click', (e) => {
                     e.preventDefault();
                     heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    if (window.innerWidth <= 600) {
+                    // Mobilde linke tıklandığında menüyü kapat
+                    if (window.innerWidth <= 800) {
                         document.getElementById('bookContainer').classList.remove('with-summary');
                     }
                 });
@@ -356,16 +357,25 @@
         
         // İçerik içindeki iç linkleri (anchor) yumuşak scroll'a bağla
         function fixInternalLinks() {
-            const internalLinks = document.querySelectorAll('#bookContent a[href^="#"]');
+            // Hem ana içerik hem de yan menüdeki statik linkleri (Kapak, Künye vb.) kapsa
+            const internalLinks = document.querySelectorAll('#bookContent a[href^="#"], .bookdown-sidebar a[href^="#"]');
             internalLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
-                    const id = link.getAttribute('href').substring(1);
+                    const href = link.getAttribute('href');
+                    if (href === '#' || href === '') return;
+                    
+                    const id = href.substring(1);
                     const target = document.getElementById(id);
                     if (target) {
                         e.preventDefault();
                         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        // URL'i güncelle (isteğe bağlı)
+                        // URL'i güncelle
                         history.pushState(null, null, '#' + id);
+                        
+                        // Mobilde linke tıklandığında menüyü kapat
+                        if (window.innerWidth <= 800) {
+                            document.getElementById('bookContainer').classList.remove('with-summary');
+                        }
                     }
                 });
             });
