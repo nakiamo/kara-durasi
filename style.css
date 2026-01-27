@@ -1,13 +1,18 @@
-/* Kara Durası - GitHub Pages Stil Dosyası */
+/* Kara Durası - Modern Stil Dosyası */
+/* Seviye 1 İyileştirmeleri: Tipografi, Renk, Spacing, Animasyonlar */
 
 :root {
-    --primary-color: #2c3e50;
-    --secondary-color: #34495e;
-    --accent-color: #e74c3c;
-    --text-color: #333;
-    --bg-color: #fff;
-    --border-color: #ddd;
-    --link-color: #3498db;
+    /* Daha sıcak, kitap temasına uygun renk paleti */
+    --primary-color: #3d2817;        /* Sıcak kahverengi */
+    --secondary-color: #5c4033;      /* Koyu kahverengi */
+    --accent-color: #8b4513;        /* Saddle brown - daha yumuşak */
+    --text-color: #2c2c2c;          /* Daha yumuşak siyah */
+    --bg-color: #faf9f7;             /* Sıcak beyaz */
+    --section-bg: #ffffff;
+    --border-color: #e8e5e0;         /* Yumuşak bej */
+    --link-color: #6b4423;           /* Sıcak kahve */
+    --shadow-soft: 0 4px 20px rgba(61, 40, 23, 0.08);
+    --shadow-medium: 0 8px 30px rgba(61, 40, 23, 0.12);
 }
 
 * {
@@ -18,47 +23,54 @@
 
 body {
     font-family: 'Georgia', 'Times New Roman', serif;
-    line-height: 1.8;
+    font-size: 16px;                    /* 14px → 16px */
+    line-height: 1.75;                   /* 1.8 → 1.75 (daha nefes alan) */
     color: var(--text-color);
     background-color: var(--bg-color);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 40px 30px;                 /* 20px → 40px/30px */
 }
 
-/* Header */
+/* Header - Daha büyük ve nefes alan */
 header {
     text-align: center;
-    padding: 40px 20px;
+    padding: 60px 30px;                   /* 40px → 60px */
     border-bottom: 3px solid var(--primary-color);
-    margin-bottom: 40px;
+    margin-bottom: 60px;                 /* 40px → 60px */
+    background: linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(250,249,247,0.95));
 }
 
 header h1 {
-    font-size: 3em;
+    font-size: 3.5em;                    /* 3em → 3.5em */
     color: var(--primary-color);
-    margin-bottom: 10px;
+    margin-bottom: 15px;                  /* 10px → 15px */
     font-weight: bold;
+    letter-spacing: -0.02em;             /* Daha modern görünüm */
 }
 
 .author {
-    font-size: 1.5em;
+    font-size: 1.75em;                   /* 1.5em → 1.75em */
     color: var(--secondary-color);
-    margin-bottom: 5px;
+    margin-bottom: 10px;                  /* 5px → 10px */
+    font-weight: 400;
 }
 
 .subtitle {
-    font-size: 1.1em;
-    color: #666;
+    font-size: 1.2em;                    /* 1.1em → 1.2em */
+    color: #7a6b5a;
     font-style: italic;
+    margin-top: 5px;
 }
 
-/* Navigation */
+/* Navigation - Daha yumuşak ve modern */
 .main-nav {
-    margin-bottom: 40px;
+    margin-bottom: 50px;                 /* 40px → 50px */
 }
 
 .main-nav ul {
@@ -66,69 +78,94 @@ header h1 {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 15px;                           /* 20px → 15px (daha kompakt) */
 }
 
 .main-nav a {
     color: var(--primary-color);
     text-decoration: none;
-    font-weight: bold;
-    padding: 10px 20px;
-    border: 2px solid var(--primary-color);
-    border-radius: 5px;
-    transition: all 0.3s;
+    font-weight: 600;                    /* bold → 600 */
+    padding: 14px 28px;                  /* 10px 20px → 14px 28px */
+    border: 2px solid var(--border-color);
+    border-radius: 8px;                  /* 5px → 8px */
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth easing */
+    background: var(--section-bg);
+    box-shadow: var(--shadow-soft);
 }
 
 .main-nav a:hover {
     background-color: var(--primary-color);
     color: white;
+    transform: translateY(-3px);         /* Daha belirgin lift */
+    box-shadow: var(--shadow-medium);
+    border-color: var(--primary-color);
 }
 
-/* Sections */
+.main-nav a:active {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(61, 40, 23, 0.15);
+}
+
+/* Sections - Daha geniş spacing ve yumuşak gölgeler */
 .section {
-    margin-bottom: 60px;
-    padding: 30px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 80px;                 /* 60px → 80px */
+    padding: 50px 40px;                  /* 30px → 50px 40px */
+    background-color: var(--section-bg);
+    border-radius: 12px;                 /* 8px → 12px */
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--border-color);
+    transition: box-shadow 0.3s ease;
+}
+
+.section:hover {
+    box-shadow: var(--shadow-medium);
 }
 
 .section h2 {
     color: var(--primary-color);
-    font-size: 2em;
-    margin-bottom: 20px;
-    border-bottom: 2px solid var(--primary-color);
-    padding-bottom: 10px;
+    font-size: 2.25em;                   /* 2em → 2.25em */
+    margin-bottom: 30px;                  /* 20px → 30px */
+    border-bottom: 3px solid var(--primary-color);
+    padding-bottom: 15px;                /* 10px → 15px */
+    font-weight: 600;
+    letter-spacing: -0.01em;
 }
 
 /* Book Info */
 .book-info {
     display: flex;
-    gap: 30px;
-    margin-bottom: 30px;
+    gap: 40px;                           /* 30px → 40px */
+    margin-bottom: 40px;                 /* 30px → 40px */
     flex-wrap: wrap;
 }
 
 .cover-image {
-    max-width: 300px;
+    max-width: 320px;                    /* 300px → 320px */
     width: 100%;
     height: auto;
-    border: 3px solid var(--border-color);
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border: 4px solid var(--border-color);
+    border-radius: 12px;                 /* 5px → 12px */
+    box-shadow: var(--shadow-medium);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cover-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 40px rgba(61, 40, 23, 0.15);
 }
 
 .image-alt-text {
-    margin-top: 15px;
-    font-size: 0.9em;
-    color: #666;
-    line-height: 1.6;
+    margin-top: 20px;                    /* 15px → 20px */
+    font-size: 0.95em;                   /* 0.9em → 0.95em */
+    color: #6b5d4a;
+    line-height: 1.7;                    /* 1.6 → 1.7 */
     text-align: justify;
     font-style: italic;
-    background: #f9f9f9;
-    padding: 15px;
-    border-left: 3px solid var(--primary-color);
-    max-width: 300px;
+    background: #f8f6f3;
+    padding: 20px;                       /* 15px → 20px */
+    border-left: 4px solid var(--primary-color);
+    max-width: 320px;
+    border-radius: 0 8px 8px 0;
 }
 
 .info-text {
@@ -137,177 +174,251 @@ header h1 {
 }
 
 .info-text p {
-    margin-bottom: 10px;
-    font-size: 1.1em;
-}
-
-.description {
-    margin-top: 20px;
-    font-size: 1.1em;
+    margin-bottom: 12px;                 /* 10px → 12px */
+    font-size: 1.15em;                   /* 1.1em → 1.15em */
     line-height: 1.8;
 }
 
-.description p {
-    margin-bottom: 15px;
+.description {
+    margin-top: 30px;                    /* 20px → 30px */
+    font-size: 1.15em;                   /* 1.1em → 1.15em */
+    line-height: 1.85;                   /* 1.8 → 1.85 */
+    color: var(--text-color);
 }
 
-/* Buttons */
+.description p {
+    margin-bottom: 20px;                 /* 15px → 20px */
+}
+
+/* Buttons - Daha büyük ve yumuşak */
 .btn {
     display: inline-block;
-    padding: 12px 30px;
+    padding: 14px 35px;                  /* 12px 30px → 14px 35px */
     background-color: var(--primary-color);
     color: white;
     text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: all 0.3s;
+    border-radius: 8px;                  /* 5px → 8px */
+    font-weight: 600;
+    font-size: 1.05em;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border: none;
     cursor: pointer;
+    box-shadow: var(--shadow-soft);
 }
 
 .btn:hover {
     background-color: var(--secondary-color);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
 }
 
 .btn-primary {
-    background-color: var(--accent-color);
-    font-size: 1.2em;
-    padding: 15px 40px;
+    background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+    font-size: 1.3em;                    /* 1.2em → 1.3em */
+    padding: 18px 45px;                  /* 15px 40px → 18px 45px */
+    box-shadow: var(--shadow-medium);
 }
 
 .btn-primary:hover {
-    background-color: #c0392b;
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(61, 40, 23, 0.2);
 }
 
 /* Reading Options */
 .reading-options {
     text-align: center;
-    padding: 40px;
+    padding: 50px;                       /* 40px → 50px */
 }
 
-.note {
-    margin-top: 15px;
-    color: #666;
-    font-style: italic;
-}
-
-/* Download Options */
+/* Download Options - Daha modern card tasarımı */
 .download-options {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    margin-top: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 250px → 280px */
+    gap: 35px;                           /* 30px → 35px */
+    margin-top: 40px;                    /* 30px → 40px */
 }
 
 .download-item {
     text-align: center;
-    padding: 30px;
-    background-color: white;
+    padding: 40px 30px;                  /* 30px → 40px 30px */
+    background-color: var(--section-bg);
     border: 2px solid var(--border-color);
-    border-radius: 8px;
-    transition: all 0.3s;
+    border-radius: 12px;                 /* 8px → 12px */
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-soft);
 }
 
 .download-item:hover {
     border-color: var(--primary-color);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow-medium);
+    transform: translateY(-5px);
 }
 
 .download-item h3 {
     color: var(--primary-color);
-    margin-bottom: 15px;
-    font-size: 1.5em;
+    margin-bottom: 20px;                /* 15px → 20px */
+    font-size: 1.6em;                    /* 1.5em → 1.6em */
+    font-weight: 600;
 }
 
 .download-item p {
-    margin-top: 15px;
-    color: #666;
-    font-size: 0.9em;
+    margin-top: 20px;                    /* 15px → 20px */
+    color: #6b5d4a;
+    font-size: 0.95em;                   /* 0.9em → 0.95em */
+    line-height: 1.6;
 }
 
 /* Contact Info */
 .contact-info {
-    background-color: white;
-    padding: 25px;
-    border-radius: 5px;
-    border-left: 4px solid var(--primary-color);
+    background-color: var(--section-bg);
+    padding: 35px;                       /* 25px → 35px */
+    border-radius: 12px;                 /* 5px → 12px */
+    border-left: 5px solid var(--primary-color);
+    box-shadow: var(--shadow-soft);
 }
 
 .contact-info p {
-    margin-bottom: 10px;
+    margin-bottom: 15px;                 /* 10px → 15px */
+    font-size: 1.05em;
+    line-height: 1.7;
 }
 
 .contact-info a {
     color: var(--link-color);
     text-decoration: none;
-}
-
-.contact-info a:hover {
-    text-decoration: underline;
-}
-
-/* Footer */
-.contact-info {
-    text-align: center;
-}
-
-.social-links {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.social-links a {
-    color: #333;
-    font-size: 2rem;
-    text-decoration: none;
     transition: color 0.3s ease;
 }
 
+.contact-info a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+.social-links {
+    margin-top: 25px;                    /* 20px → 25px */
+    display: flex;
+    justify-content: center;
+    gap: 25px;                           /* 20px → 25px */
+}
+
+.social-links a {
+    color: var(--primary-color);
+    font-size: 2.2rem;                   /* 2rem → 2.2rem */
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 10px;
+    border-radius: 50%;
+    background: rgba(61, 40, 23, 0.05);
+}
+
 .social-links a:hover {
-    color: #000;
+    color: var(--accent-color);
+    transform: scale(1.15) rotate(5deg);
+    background: rgba(61, 40, 23, 0.1);
 }
 
 footer {
     text-align: center;
-    padding: 40px 20px;
+    padding: 50px 30px;                  /* 40px 20px → 50px 30px */
     border-top: 2px solid var(--border-color);
-    margin-top: 60px;
-    color: #666;
+    margin-top: 80px;                    /* 60px → 80px */
+    color: #6b5d4a;
+    background: var(--section-bg);
+    border-radius: 12px 12px 0 0;
 }
 
 footer p {
-    margin-bottom: 5px;
+    margin-bottom: 8px;                 /* 5px → 8px */
+    font-size: 1.05em;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
+    body {
+        font-size: 15px;                 /* Mobilde biraz küçük */
+    }
+    
+    .container {
+        padding: 25px 20px;
+    }
+    
+    header {
+        padding: 35px 20px;
+        margin-bottom: 40px;
+    }
+    
     header h1 {
-        font-size: 2em;
+        font-size: 2.2em;
+        margin-bottom: 12px;
     }
     
     .author {
-        font-size: 1.2em;
+        font-size: 1.3em;
+        margin-bottom: 8px;
+    }
+    
+    .subtitle {
+        font-size: 1.05em;
     }
     
     .book-info {
         flex-direction: column;
+        gap: 30px;
     }
     
     .cover-image {
         max-width: 100%;
     }
     
+    .image-alt-text {
+        max-width: 100%;
+    }
+    
+    .main-nav {
+        margin-bottom: 35px;
+    }
+    
     .main-nav ul {
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
+        gap: 12px;
+        padding: 0;
+    }
+    
+    .main-nav a {
+        text-align: center;
+        padding: 18px 24px;
+        font-size: 1.1em;
+        border-radius: 12px;
+        width: 100%;
+        display: block;
+        box-shadow: 0 3px 10px rgba(61, 40, 23, 0.12);
+        border: 2.5px solid var(--border-color);
+        font-weight: 600;
+        letter-spacing: 0.3px;
+    }
+    
+    .main-nav a:active,
+    .main-nav a:focus {
+        transform: translateY(2px);
+        box-shadow: 0 1px 5px rgba(61, 40, 23, 0.18);
+        background-color: rgba(61, 40, 23, 0.05);
+    }
+    
+    .main-nav a:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(61, 40, 23, 0.15);
+    }
+    
+    .section {
+        padding: 35px 25px;
+        margin-bottom: 50px;
     }
     
     .download-options {
         grid-template-columns: 1fr;
+        gap: 25px;
     }
 }
 
@@ -320,5 +431,7 @@ footer p {
     
     .section {
         page-break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ddd;
     }
 }
